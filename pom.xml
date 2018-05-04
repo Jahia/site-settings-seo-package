@@ -97,6 +97,64 @@
         </dependency>
     </dependencies>
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${assembly.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>packaging-dependencies</id>
+                            <configuration combine.self="override">
+                                <descriptors>
+                                    <descriptor>${jahia.package.assembly.file}</descriptor>
+                                </descriptors>
+                                <attach>true</attach>
+                                <finalName>${jahia.final.package.name}-${project.version}</finalName>
+                                <appendAssemblyId>false</appendAssemblyId>
+                                <archive>
+                                    <manifestEntries>
+                                        <Jahia-Package-ID>${jahia.manifest.package.id}</Jahia-Package-ID>
+                                        <Jahia-Package-Name>${project.name}</Jahia-Package-Name>
+                                        <Jahia-Package-Version>${project.version}</Jahia-Package-Version>
+                                        <Jahia-Required-Version>${jahia.required.version}</Jahia-Required-Version>
+                                        <Jahia-Package-Description>${jahia.manifest.description}</Jahia-Package-Description>
+                                    </manifestEntries>
+                                </archive>
+                            </configuration>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>packaging-dependencies-sources</id>
+                            <configuration combine.self="override">
+                                <descriptors>
+                                    <descriptor>${jahia.package.sources.assembly.file}</descriptor>
+                                </descriptors>
+                                <attach>true</attach>
+                                <finalName>${jahia.final.package.name}-${project.version}</finalName>
+                                <appendAssemblyId>true</appendAssemblyId>
+                                <archive>
+                                    <manifestEntries>
+                                        <Jahia-Package-ID>${jahia.manifest.package.id}</Jahia-Package-ID>
+                                        <Jahia-Package-Name>${project.name}</Jahia-Package-Name>
+                                        <Jahia-Package-Version>${project.version}</Jahia-Package-Version>
+                                        <Jahia-Required-Version>${project.parent.version}</Jahia-Required-Version>
+                                        <Jahia-Package-Description>${jahia.manifest.description}</Jahia-Package-Description>
+                                    </manifestEntries>
+                                </archive>
+                            </configuration>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
